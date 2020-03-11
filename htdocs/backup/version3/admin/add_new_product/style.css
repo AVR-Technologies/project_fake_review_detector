@@ -1,0 +1,42 @@
+/* body */
+
+body 							{
+	background-color 			:		#eeeeee;
+}
+
+/* white header */
+
+.white-header 					{
+	background-color 			: 		white;
+	overflow 					: 		visible;
+} 
+.white-header 
+.mdl-navigation__link 			{
+	color 						: 		#757575;
+	font-weight 				: 		bold;
+    font-size 					: 		16px;
+}
+.white-header 
+.mdl-navigation__link:hover  	{
+      border-bottom 			: 		4px solid #43a047;
+}
+.white-header 
+.mdl-layout-title 				{
+	color 						: 		#43a047;
+	font-weight 				: 		bold;
+	font-size 					:		26px;
+}
+
+
+/* login card */
+.add_new_card					{
+	width						:		400px;
+	margin						:		20px;
+}
+.add_new_card
+.mdl-menu						{
+	max-height					:		150px; 
+	overflow-y					:		scroll;
+}
+
+

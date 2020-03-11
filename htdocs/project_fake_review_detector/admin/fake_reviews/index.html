@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>admin</title>
+  <!-- title of website tab-->
+  <link rel="stylesheet" href="../../libs/mdl/material.min.css">
+  <!-- include mdl stylesheet -->
+  <script src="../../libs/mdl/material.min.js"></script>
+  <!-- include mdl javascript -->
+  <link rel="stylesheet" href="../../libs/getmdl-select/getmdl-select.min.css">
+  <!-- include getmdl-select stylesheet -->
+  <script defer src="../../libs/getmdl-select/getmdl-select.min.js"></script>
+  <!-- include getmdl-select javascript -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- include mdl icons -->
+  <link rel="stylesheet" href="../../global_style.css">
+  <!-- include custom stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <!-- include global_style from top directory -->
+  <script src="../../libs/jquery/jquery.min.js"></script>
+  <!-- include jquery library -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div class="mdl-layout 
+                mdl-js-layout 
+                mdl-layout--fixed-header">
+
+    <!-- header layout -->
+    <header class=" white-header 
+                      mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">Admin Panel</span>
+        <!-- title of webpage -->
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation-->
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="../add_new_product">Add new product</a>
+          <a class="mdl-navigation__link" onclick="logout()">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- main layout -->
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        <!-- your content goes here -->
+        <table class="mdl-data-table 
+                        mdl-js-data-table 
+                        mdl-shadow--2dp
+                        margin_2">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Product id</th>
+              <th class="mdl-data-table__cell--non-numeric">Product name</th>
+              <th class="mdl-data-table__cell--non-numeric">Username</th>
+              <th class="mdl-data-table__cell--non-numeric">Email</th>
+              <th class="mdl-data-table__cell--non-numeric">Review</th>
+              <th class="mdl-data-table__cell--non-numeric">IP address</th>
+              <th>
+                <button class=" mdl-button 
+                                  mdl-js-button 
+                                  mdl-button--accent 
+                                  mdl-js-ripple-effect 
+                                  weight-700" onclick="deleteAllReviews()">Delete all
+                </button>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="reviews_table_body">
+
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>
+
+<script type="text/javascript">
+  //init page
+  checkSession();
+  list_reviews();
+  //list reviews in table
+  function list_reviews() {
+    $("#reviews_table_body").empty();
+    var url = "list_fake_reviews.php";
+    $.get(url, function (data, success) {
+      var response = JSON.parse(data);
+      var success = response.success;
+      var message = response.message;
+      if (success) {
+        var fake_review_list = response.fake_review_list;
+        for (var i = 0; i < fake_review_list.length; i++) {
+          $("#reviews_table_body").append(createTableRows(fake_review_list[i].rid, fake_review_list[i].pid, fake_review_list[i].pname, fake_review_list[i].username, fake_review_list[i].email, fake_review_list[i].review, fake_review_list[i].ip));
+        }
+      } else {
+        console.log(response.message);
+      }
+    });
+  }
+
+  //create table rows
+  function createTableRows(rid, pid, pname, username, email, review, ip) {
+    return $('<tr/>').append(
+      $('<td/>', {
+        class: "mdl-data-table__cell--non-numeric",
+        text: pid,
+      }),
+      $('<td/>', {
+        class: "mdl-data-table__cell--non-numeric",
+        text: pname,
+      }),
+      $('<td/>', {
+        class: "mdl-data-table__cell--non-numeric",
+        text: username,
+      }),
+      $('<td/>', {
+        class: "mdl-data-table__cell--non-numeric",
+        text: email,
+      }),
+      $('<td/>', {
+        class: "mdl-data-table__cell--non-numeric",
+        text: review,
+      }),
+      $('<td/>', {
+        class: "mdl-data-table__cell--non-numeric",
+        text: ip,
+      }),
+      $('<td/>', {
+      }).html(
+        $('<button/>', {
+          text: "Delete",
+          class: "mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect weight-700",
+          click: (function () { deleteSingleReview(rid, this); })
+        })
+      ),
+    );
+  }
+
+  //delete all fake reviews
+  function deleteAllReviews() {
+    var url = "delete_all_reviews.php";
+    $.get(url, function (data, success) {
+      var response = JSON.parse(data);
+      var success = response.success;
+      var message = response.message;
+      if (success) {
+        list_reviews();
+      }
+      alert(message);
+    });
+  }
+
+  //deletes single review
+  function deleteSingleReview(rid, row_context) {
+    var url = "delete_single_review.php"
+    var url_map = { rid: rid };
+    $.post(url, url_map, function (data, success) {
+      var response = JSON.parse(data);
+      var success = response.success;
+      var message = response.message;
+      alert(message);
+    });
+    //remove that row
+    $($(row_context).closest("tr")).remove();
+  }
+  // check if admin signed in
+  function checkSession() {
+    var url = "../admin_check_session/";
+    $.get(url, function (data, status) {
+      var response = JSON.parse(data);
+      var success = response.success;
+      var message = response.message;
+      if (success) {
+        console.log(response.admin_mail);
+      }
+      else {
+        document.location.href = "../login/";
+      }
+    });
+  }
+  //logout
+  function logout() {
+    var url = "../logout/";
+    $.get(url, function (data, status) {
+      var response = JSON.parse(data);
+      var success = response.success;
+      var message = response.message;
+      if (success) {
+        document.location.href = "../login/";
+      }
+    });
+  }
+</script>

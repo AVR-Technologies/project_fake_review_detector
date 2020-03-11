@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>S Mart</title>
+    <!-- title of website tab-->
+    <link rel="stylesheet" 
+          href="../libs/mdl/material.min.css">
+    <!-- include mdl stylesheet -->
+    <script src="../libs/mdl/material.min.js"></script>
+    <!-- include mdl javascript -->
+    <link rel="stylesheet" 
+          href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- include mdl icons      -->
+    <link rel="stylesheet" 
+          href="../global_style.css">
+    <!-- include custom stylesheet -->
+    <link rel="stylesheet" 
+          href="style.css">
+    <!-- include global_style from top directory -->
+    <script src="../libs/jquery/jquery.min.js"></script>
+    <!-- include jquery library -->
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1">
+</head>
+<body>
+</body>
+</html>
+
+
+<script type="text/javascript">
+	$("body").html(ratingBar(3));
+	function ratingBar(rating){
+		//if (rating > 5) { rating = 5;}
+		var buttonBarWidget = $("<ul/>");
+		var counter = 0;
+		for (;counter < rating; counter++) {
+			buttonBarWidget.append(colored_star_icon_button(counter));
+		}
+		for (;counter < 5; counter++) {	
+			buttonBarWidget.append(uncolored_star_icon_button(counter));}
+		return buttonBarWidget;
+	}
+	function colored_star_icon_button(position){
+		return $('<button/>',{
+			class : "mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored",
+			click : (function(){new_rating(position);})
+		})
+		.append($('<i/>',{class : "material-icons",text : "star"}));
+	}
+	function uncolored_star_icon_button(position){
+		return $('<button/>',{
+			class : "mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect",
+			click : (function(){new_rating(position);})
+		})
+		.append($('<i/>',{class : "material-icons",text : "star"}));
+	}
+	function new_rating(position){$('body').html(ratingBar(position+1));}
+</script>

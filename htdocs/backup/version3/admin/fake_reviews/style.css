@@ -1,0 +1,46 @@
+/* body */
+
+body 							{
+	background-color 			:		#eeeeee;
+}
+
+
+/* white header */
+
+.white-header 					{
+	background-color 			: 		white;
+	overflow 					: 		visible;
+} 
+.white-header 
+.mdl-navigation__link 			{
+	color 						: 		#757575;
+	font-weight 				: 		bold;
+    font-size 					: 		16px;
+    cursor 						:		pointer;
+}
+.white-header 
+.mdl-navigation__link:hover  	{
+      border-bottom 			: 		4px solid #43a047;
+}
+.white-header 
+.mdl-layout-title 				{
+	color 						: 		#43a047;
+	font-weight 				: 		bold;
+	font-size 					:		26px;
+}
+
+
+/*	title card	*/
+
+.title_card 					{
+    display						:		inline-block;
+    background-color 			:		white;
+}
+.title_card
+.mdl-card__title 				{
+	height						:		50px;
+}
+.title_card
+.mdl-card__title-text			{
+    font-size 					:		20px;
+}

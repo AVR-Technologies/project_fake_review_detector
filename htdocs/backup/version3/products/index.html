@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>S Mart</title>
+    <!-- title of website tab-->
+    <link rel="stylesheet" 
+          href="../libs/mdl/material.min.css">
+    <!-- include mdl stylesheet -->
+    <script src="../libs/mdl/material.min.js"></script>
+    <!-- include mdl javascript -->
+    <link rel="stylesheet" 
+          href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- include mdl icons -->
+    <link rel="stylesheet" 
+          href="../global_style.css">
+    <!-- include custom stylesheet -->
+    <link rel="stylesheet" 
+          href="style.css">
+    <!-- include global_style from top directory -->
+    <script src="../libs/jquery/jquery.min.js"></script>
+    <!-- include jquery library -->
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="mdl-layout 
+                mdl-js-layout 
+                mdl-layout--fixed-header">
+      
+      <!-- header layout -->
+      <header class=" white-header 
+                      mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">S Mart</span>
+          <!-- title of webpage -->
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation-->
+          <nav class="mdl-navigation">
+            <a  class="mdl-navigation__link" 
+                href="../">Home</a>
+            <a  class="mdl-navigation__link session_unavailable" 
+                href="../login">Login</a>
+            <a  class="mdl-navigation__link session_unavailable" 
+                href="../register">Register</a>
+            <a  class="mdl-navigation__link session_available" 
+                onclick="logout()">Logout</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- main layout -->
+      <main class="mdl-layout__content">
+        <div class="page-content" id="shop_item_card_container">
+          <!-- your content goes here -->
+
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+<script type="text/javascript">
+  //init page
+  //check if user has signed in
+  checkSession();
+  var get_params = decodeAddressBar();
+  list_products();
+
+  function list_products(){
+    var url = "list_products.php";
+    if (get_params.category != null) {
+      url   += "?category="
+            + get_params.category;
+    }       
+    $.get(url, function(data, success){
+      var response  = JSON.parse(data);
+      var success   = response.success;
+      var message   = response.message;
+      if (success) {
+        var product_list = response.product_list;
+        for (var i = 0; i < product_list.length; i++) {
+          $("#shop_item_card_container").append(
+          create_shopping_card(product_list[i].image_name, product_list[i].name, product_list[i].price, product_list[i].id )
+        );
+        }
+      } else{
+        alert(message);
+      }       
+    });
+  }
+
+  function decodeAddressBar(){
+    var addressBarText  = document.location.href
+    var data            = {};
+    if (addressBarText.includes('?')) {
+      var params        = addressBarText.split('?')[1].split('&');
+      for(var i = 0; i < params.length; i++){
+        var temp        = params[i].split('=');
+        data[temp[0]]   = temp[1];
+      }
+    }
+    return data;
+  }
+
+  //create custom shopping card
+  function create_shopping_card(product_image_src, product_name, product_price, product_id){
+    return  $('<div/>',{
+              class : 'mdl-card mdl-shadow--2dp shop_item_card border_radius_20',
+            }).append(
+              $('<div/>',{
+                class : "mdl-card__title",
+              }).append(
+                $('<img/>',{
+                  class : "shop_item_card_image",
+                  src   : product_image_src,
+                }),
+                $('<a/>',{
+                  text  : product_name,
+                  class : "mdl-card__title-text color-grey",
+                  href  : "../product/?id="+ product_id,
+                })
+              ),
+              $('<div/>',{
+                class   : "mdl-card__actions top-border weight-700 color-grey border_radius_20",
+                }).append("Price:",
+                $('<div/>',{
+                  class : "shop_item_card_price_title",
+                }).append(product_price),
+              ),
+            );
+  }
+  
+
+
+  // check if user signed in
+  function checkSession(){
+    var url = "../user_check_session/";
+    $.get(url,function(data, status){
+      var response  = JSON.parse(data);
+      var success   = response.success;
+      var message   = response.message;
+      if (success)  {  
+        console.log(response.user_mail);
+        $(".session_available").show();
+        $(".session_unavailable").hide();
+      }
+      else          {  
+        $(".session_available").hide();
+        $(".session_unavailable").show();
+      }
+    });
+  }
+  //logout
+  function logout(){
+    var url = "../logout/";
+    $.get(url,function(data, status){
+      var response  = JSON.parse(data);
+      var success   = response.success;
+      var message   = response.message;
+      if (success)  {  
+        $(".session_available").hide();
+        $(".session_unavailable").show();
+      }
+      else          {  
+        $(".session_available").show();
+        $(".session_unavailable").hide();
+      }
+    });
+  }
+
+</script>

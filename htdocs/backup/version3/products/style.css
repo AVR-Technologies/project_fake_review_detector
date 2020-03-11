@@ -1,0 +1,74 @@
+/* body */
+
+body 							{
+	background-color 			:		#eeeeee;
+}
+
+/* shop item card */
+
+.shop_item_card					{
+    width						:		250px;
+    height						:		250px;
+    margin						:		4px;
+    display						:		inline-block;
+}
+.shop_item_card
+.mdl-card__title				{
+	color						:		#424242;
+	height						:		80%;
+	width						:		100%;
+	display						:		table;
+}
+.shop_item_card
+.mdl-card__title-text			{
+	list-style					:		none;
+	white-space 				:		nowrap;
+	overflow 					:		hidden;
+	text-overflow 				:		ellipsis;
+	display 					:		block;
+	font-weight 				: 		700;
+	text-align 					:		center;
+	text-decoration 			:		none;
+  	text-overflow 				:		ellipsis;
+	white-space 				:		nowrap;
+}
+.shop_item_card_image			{
+	height						:		140px;
+	margin-right 				:		auto;/*to center image horizontaly*/
+	margin-left 				:		auto;/*to center image horizontaly*/
+	display						:		block;
+}
+.shop_item_card
+.mdl-card__actions				{
+	font-size					:		20px;
+	text-align 					:		center;
+}
+.shop_item_card_price_title		{
+	color						:		#f44336;
+	font-size					:		20px;
+	display						:		inline-block;
+	vertical-align				:		center;
+}
+
+/* white header */
+
+.white-header 					{
+	background-color 			:		white;
+	overflow 					: 		visible;
+} 
+.white-header 
+.mdl-navigation__link 			{
+	color 						: 		#757575;
+	font-weight 				: 		bold;
+    font-size 					: 		16px;
+}
+.white-header
+.mdl-navigation__link:hover  	{
+      border-bottom 			: 		4px solid #43a047;
+}
+.white-header 
+.mdl-layout-title {
+	color 						: 		#43a047;
+	font-weight 				: 		bold;
+	font-size 					: 		26px;
+}

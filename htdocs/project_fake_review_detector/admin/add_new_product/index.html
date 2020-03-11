@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>admin</title>
+    <!-- title of website tab-->
+    <link rel="stylesheet" 
+          href="../../libs/mdl/material.min.css">
+    <!-- include mdl stylesheet -->
+    <script src="../../libs/mdl/material.min.js"></script>
+    <!-- include mdl javascript -->
+    <link rel="stylesheet" 
+          href="../../libs/getmdl-select/getmdl-select.min.css">
+    <!-- include getmdl-select stylesheet -->   
+    <script defer src="../../libs/getmdl-select/getmdl-select.min.js"></script>
+    <!-- include getmdl-select javascript -->   
+    <link rel="stylesheet" 
+          href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- include mdl icons -->
+    <link rel="stylesheet" 
+          href="../../global_style.css">
+    <!-- include custom stylesheet -->
+    <link rel="stylesheet" 
+          href="style.css">
+    <!-- include global_style from top directory -->
+    <script src="../../libs/jquery/jquery.min.js"></script>
+    <!-- include jquery library -->
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="mdl-layout 
+                mdl-js-layout 
+                mdl-layout--fixed-header">
+      
+      <!-- header layout -->
+      <header class=" white-header 
+                      mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Admin Panel</span>
+          <!-- title of webpage -->
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation-->
+          <nav class="mdl-navigation">
+            <a  class="mdl-navigation__link" 
+                href="../fake_reviews">Fake reviews</a>
+            <a  class="mdl-navigation__link" 
+                onclick="logout()">Logout</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- main layout -->
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <!-- your content goes here -->
+
+        
+          <center>
+            <!-- login card -->
+          <div class="add_new_card 
+                      mdl-card 
+                      mdl-shadow--2dp
+                      border_radius_20">
+            <div class="mdl-card__title 
+                        bottom-border">
+              <h2 class=" mdl-card__title-text 
+                          color-grey 
+                          weight-700">Add new product</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              
+              <!-- input category select -->
+              <div class="full_width
+                          mdl-textfield 
+                          mdl-js-textfield 
+                          mdl-textfield--floating-label 
+                          getmdl-select">
+                  <input  type="text" 
+                          value="" 
+                          class="mdl-textfield__input" 
+                          id="category" 
+                          readonly>
+                  <input  type="hidden" 
+                          value=""
+                          id="etCategory" 
+                          name="etCategory">
+                  <label  for="category" 
+                          class="mdl-textfield__label">Product category</label>
+                  <ul for="category" 
+                      class=" mdl-menu 
+                              mdl-menu--bottom-left 
+                              mdl-js-menu">
+                      <li class="mdl-menu__item" 
+                          data-val="1"
+                          data-selected="true">men</li>
+                      <li class="mdl-menu__item" 
+                          data-val="2">women</li>
+                      <li class="mdl-menu__item" 
+                          data-val="3">books</li>
+                      <li class="mdl-menu__item" 
+                          data-val="4">gadgets</li>
+                      <li class="mdl-menu__item" 
+                          data-val="5">sports</li>
+                  </ul>
+              </div>
+
+              <!-- product id input -->
+              <div class="full_width 
+                          mdl-textfield 
+                          mdl-js-textfield 
+                          mdl-textfield--floating-label">
+                <input  class="mdl-textfield__input" 
+                        type="text" 
+                        id="etId">
+                <label  class="mdl-textfield__label" 
+                        for="etId">Product Id</label>
+              </div>
+
+              <!-- name input -->
+              <div class="full_width 
+                          mdl-textfield 
+                          mdl-js-textfield 
+                          mdl-textfield--floating-label">
+                <input  class="mdl-textfield__input" 
+                        type="text" 
+                        id="etName">
+                <label  class="mdl-textfield__label" 
+                        for="etName">Product Name</label>
+              </div>
+              
+                
+              <!-- price input -->
+              <div class="full_width 
+                          mdl-textfield 
+                          mdl-js-textfield 
+                          mdl-textfield--floating-label">
+                <input  class="mdl-textfield__input" 
+                        type="number" 
+                        id="etPrice">
+                <label  class="mdl-textfield__label" 
+                        for="etPrice">Product Price</label>
+              </div>
+              <!-- info input -->
+              <div class="full_width 
+                          mdl-textfield 
+                          mdl-js-textfield 
+                          mdl-textfield--floating-label">
+                <input  class="mdl-textfield__input" 
+                        type="text" 
+                        id="etInfo">
+                <label  class="mdl-textfield__label" 
+                        for="etInfo">Product Info</label>
+              </div>
+
+              <!-- image input -->
+
+              <input  type="file" 
+                      accept="image/*" 
+                      id="etImage" 
+                      onchange="displayFileName()" 
+                      style="opacity: 0;"><!--accept="image/*"-->
+              <label  class=" full_width
+                              mdl-button 
+                              mdl-js-button 
+                              mdl-js-ripple-effect 
+                              color-mat-blue-800
+                              weight-700"
+                      for="etImage"
+                      id="labelImage">Upload image
+              </label>
+
+              
+            </div>
+            <div class="mdl-card__actions 
+                        mdl-card--border 
+                        border_radius_20">
+              <!-- login button -->
+              <button class=" mdl-button 
+                              mdl-button--accent 
+                              mdl-button--raised 
+                              mdl-js-button 
+                              mdl-js-ripple-effect 
+                              align_right 
+                              border_radius_20 
+                              weight-700"
+                      onclick="add_new_product()">Add</button>
+            </div>
+          </div>
+          
+          </center>
+
+          
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+  //init page
+  checkSession()
+  //check if other file type is selected instead of image
+  function checkFileType(){
+    //ex. if image(jpeg) is selected
+    //then document.getElementById("etImage").files[0].type 
+    //will give ouput image/jpeg
+    //we are splitting image from ouput with char "/"
+    var fileType = $("#etImage")[0].files[0].type.split("/")[0];
+    if (fileType == "image") {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  function displayFileName(){
+    if (checkFileType()) {
+      $("#labelImage").html($("#etImage")[0].files[0].name);
+    }else{
+      alert("Selected file is not an image file.");
+      $("#etImage").value = "";
+      $("#labelImage").html("UPLOAD IMAGE");
+    }
+    
+  }
+  function add_new_product(){
+    var inputCategory           = $("#etCategory");
+    var inputId                 = $("#etId");
+    var inputName               = $("#etName");
+    var inputPrice              = $("#etPrice");
+    var inputInfo               = $("#etInfo");
+    var inputImage              = $("#etImage");
+    var labelImage              = $("#labelImage");
+    var stringCategory          = inputCategory.val();
+    var stringId                = inputId.val();
+    var stringName              = inputName.val();
+    var stringPrice             = inputPrice.val();
+    var stringInfo              = inputInfo.val();
+    var stringImageObject       = inputImage[0].files[0];
+    //check if category provided
+    if (stringCategory != "") {
+      //check if mame provided
+      if (stringName != "") {
+        //check if price provided
+        if (stringPrice != "") {
+          //check if image provided
+          if (stringImageObject != "") {
+            var stringImageName         = stringImageObject.name;
+            readData(stringImageObject, function(stringImageData){
+              var url = "add.php";
+              var url_map = {
+                product_category  : stringCategory,
+                product_id        : stringId,
+                product_name      : stringName,
+                product_price     : stringPrice,
+                product_info      : stringInfo,
+                product_image_name: stringImageName,
+                product_image_data: stringImageData,
+              };
+              $.post(url, url_map,function(data, success){
+                var response  = JSON.parse(data);
+                var success   = response.success;
+                var message   = response.message;
+                alert(message);
+              });
+            });
+          }else{
+            alert("Product image is not selected.");
+            labelImage.focus();
+          }
+        }else{
+          alert("Product price is not provided.");
+          inputPrice.focus();
+        }
+      }else{
+        alert("Product name is not provided.");
+        inputName.focus();
+      }
+    }else{
+      alert("Product category not selected.");
+      inputCategory.focus();
+    }
+  }
+  //reads image data and encode it into base64 format
+  function readData(url, callback){
+      var reader = new FileReader();
+      reader.onload = async function(){
+        callback(reader.result);
+      };
+      reader.readAsDataURL(url);
+      //reader.readAsText(inputImage[0].files[0]);
+  }
+
+  // check if admin signed in
+  function checkSession(){
+    var url = "../admin_check_session/";
+    $.get(url,function(data, status){
+      var response  = JSON.parse(data);
+      var success   = response.success;
+      var message   = response.message;
+      if (success)  {  
+        console.log(response.admin_mail);
+      }
+      else          {  
+        document.location.href = "../login/";
+      }
+    });
+  }
+  //logout
+  function logout(){
+    var url = "../logout/";
+    $.get(url,function(data, status){
+      var response  = JSON.parse(data);
+      var success   = response.success;
+      var message   = response.message;
+      if (success)  {
+        document.location.href = "../login/";
+      }
+    });
+  }
+</script>

@@ -1,0 +1,81 @@
+.top-border				{
+	border-top			: 	1px solid #e0e0e0;
+}
+.bottom-border			{
+	border-bottom		:	1px solid #e0e0e0;
+}
+.align_left				{
+	float				:	left;
+	margin-right		:	4px;
+}
+.align_right			{
+	float				:	right;
+	margin-right		:	4px;
+}
+.full_width				{
+	width				:	100%;
+}
+.top-border				{
+	border-top			: 	1px solid #e0e0e0;
+}
+.border_radius_10		{
+	border-radius 		:	10px;
+}
+.border_radius_20		{
+	border-radius 		:	20px;
+}
+.weight-700				{
+	font-weight 		:	700;
+}
+.margin_2{
+	width 				:	96%;
+	margin 				:	2%;
+}
+/* specially design for device page */
+.left_section			{
+	display				:		inline-block;
+	position			:		fixed;
+	overflow-x			:		hidden;
+	left				:		0;
+	width				:		30%
+}
+.right_section			{
+	display				:		inline-block;
+	position			:		absolute;
+	overflow-x			:		hidden;
+	right				:		0;
+	width				:		70%;
+}
+
+/* colors */
+.color-mat-green-800 	{
+	color 				:	#2e7d32;
+}
+.color-mat-blue-800 	{
+	color 				:	#0277bd;
+}
+.color-mat-red-500		{
+	color 				:	#f44336;
+}
+.color-dark-grey		{
+	color				:	#424242;
+}
+.color-grey				{
+	color 				:	#757575;
+}
+
+/* background colors */
+.back-mat-green-800,
+.back-mat-green-800:hover {
+	background-color 	:	#2e7d32;
+}
+.back-mat-blue-800,
+.back-mat-blue-800:hover {
+	background-color 	:	#0277bd;
+	color 				:	white;
+}
+.back-mat-red-500,
+.back-mat-red-500:hover	{
+	background-color 	:	#f44336;
+	color 				:	white;
+}

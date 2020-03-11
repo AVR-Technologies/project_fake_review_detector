@@ -1,0 +1,42 @@
+/* body */
+
+body 							{
+	background-color 			:		#212121;
+}
+
+/* white header */
+
+.white-header 					{
+	background-color 			: 		#263238;
+	overflow 					: 		visible;
+} 
+.white-header 
+.mdl-navigation__link 			{
+	color 						: 		white;
+	font-weight 				: 		bold;
+    font-size 					: 		16px;
+}
+.white-header 
+.mdl-navigation__link:hover  	{
+      border-bottom 			: 		4px solid white;
+}
+.white-header 
+.mdl-layout-title 				{
+	color 						: 		white;
+	font-weight 				: 		bold;
+	font-size 					:		26px;
+}
+
+
+/* login card */
+.add_new_card					{
+	width						:		400px;
+	margin						:		20px;
+}
+.add_new_card
+.mdl-menu						{
+	max-height					:		150px; 
+	overflow-y					:		scroll;
+}
+
+

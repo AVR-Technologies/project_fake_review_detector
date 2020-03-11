@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>S Mart</title>
+    <!-- title of website tab-->
+    <link rel="stylesheet" 
+          href="../libs/mdl/material.min.css">
+    <!-- include mdl stylesheet -->
+    <script src="../libs/mdl/material.min.js"></script>
+    <!-- include mdl javascript -->
+    <link rel="stylesheet" 
+          href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- include mdl icons      -->
+    <link rel="stylesheet" 
+          href="../global_style.css">
+    <!-- include custom stylesheet -->
+    <link rel="stylesheet" 
+          href="style.css">
+    <!-- include global_style from top directory -->
+    <script src="../libs/jquery/jquery.min.js"></script>
+    <!-- include jquery library -->
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="mdl-layout 
+                mdl-js-layout 
+                mdl-layout--fixed-header">
+
+      <!-- header layout -->
+      <header class=" white-header 
+                      mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">S Mart</span>
+          <!-- title of webpage -->
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation-->
+          <nav class="mdl-navigation">
+            <a  class="mdl-navigation__link" 
+                href="../">Home</a>
+            <a  class="mdl-navigation__link session_unavailable" 
+                href="../login">Login</a>
+            <a  class="mdl-navigation__link session_unavailable" 
+                href="../register">Register</a>
+            <a  class="mdl-navigation__link session_available" 
+                onclick="logout()">Logout</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- main layout -->
+      <main class="mdl-layout__content">
+        <div class="page-content" id="product_info_container">
+          <!-- your content goes here -->
+          <!-- left section -->
+          <section class="left_section">
+
+            <!-- Shop item name and price card -->
+            <div class="mdl-shadow--2dp 
+                        shop_item_name_card 
+                        border_radius_20">
+              <div class="mdl-card__title">
+                <h2 class=" mdl-card__title-text 
+                            color-dark-grey"
+                    id="shop_item_card_title">Redmi 6</h2>
+              </div>
+              <div class="mdl-card__title 
+                          top-border
+                          border_radius_20">Price:
+                <div  class="shop_item_card_price_title" 
+                      id="shop_item_card_price">Rs.600
+                  </div>
+              </div>
+              <div class="mdl-card__title 
+                          top-border 
+                          border_radius_20">
+                <button class=" mdl-button 
+                                mdl-button--accent 
+                                mdl-button--raised 
+                                mdl-js-button 
+                                mdl-js-ripple-effect
+                                full_width 
+                                border_radius_20 
+                                weight-700">Buy
+                </button>
+              </div>
+            </div>
+
+            <!-- Shop item image card -->
+            <div class="mdl-card 
+                        mdl-shadow--2dp 
+                        shop_item_image_card 
+                        border_radius_20">
+              <img  class="shop_item_card_image" 
+                    id="shop_item_card_image">
+            </div>
+          </section>
+
+          <!-- right section -->
+          <section class="right_section">
+            <!--Enter review card-->
+            <div  class=" mdl-shadow--2dp 
+                          enter_review_card 
+                          border_radius_20" >
+              <div class="mdl-card__title" >
+                <h2 class=" mdl-card__title-text 
+                            color-grey
+                            weight-700">Give Review</h2>
+              </div>
+              <div id="rating_bar_container"></div>
+              <div class="mdl-textfield 
+                          mdl-js-textfield 
+                          mdl-textfield--floating-label">
+                <textarea class="mdl-textfield__input" 
+                          type="text" 
+                          rows= "4" 
+                          id="etReview" ></textarea>
+                <label  class="mdl-textfield__label" 
+                        for="etReview">Enter Review</label>
+              </div>
+              <div class="mdl-card__actions 
+                          mdl-card--border 
+                          border_radius_20">
+                <button class=" mdl-button 
+                                mdl-button--colored 
+                                mdl-button--raised 
+                                mdl-js-button 
+                                mdl-js-ripple-effect 
+                                border_radius_20
+                                weight-700"
+                        onclick="submitReview()">Submit</button>
+              </div>
+            </div>
+
+            <!--reviews card-->
+            <div id="review_card_container"></div>
+
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+<script type="text/javascript">
+  //init page
+  //check if user has signed in
+  checkSession();
+  // hide all page contents
+  $("#product_info_container").hide();
+  //initialise product id
+  var product_id = "";
+  //check for product id
+  check_id();
+  //load product info
+  loadProductInfo();
+  //load review if present
+  loadReviews();
+  ////////////////////////////////rating bar contents
+  //counter for rating store
+  var rating = 0;
+  //populate custom star rating bar
+  $("#rating_bar_container").html(ratingBar(rating));
+  ///////////////////////////////////////////////////
+  function loadReviews(){
+    var url = "list_reviews.php"
+            + "?id="
+            + product_id;
+    $.get(url, function(data, success){
+      var response  = JSON.parse(data);
+      var success   = response.success;
+      var message   = response.message;
+      if (success) {
+        $("#review_card_container").empty();
+        var review_list = response.review_list;
+        for(var i = 0; i < review_list.length; i++){
+          $("#review_card_container").append(createReviewCard(review_list[i].email,review_list[i].review, review_list[i].rating));
+        }
+      }else{
+        console.log(response.message);
+      }
+    });
+  }
+
+  //create review card
+  function createReviewCard(user_mail, user_review, user_rating){
+    return  $('<div/>',{
+              class : "mdl-shadow--2dp review_card border_radius_20",
+            }).append(
+              $('<div/>',{
+                class:"mdl-card__title",
+              }).append(
+                $('<h3/>',{
+                  class : "mdl-card__title-text weight-700 color-grey",
+                  text :  user_mail,
+                }),
+                stars_from_rating(user_rating)
+              ),
+              $('<div/>',{
+                class : "mdl-card__supporting-text top-border border_radius_20",
+                text  : user_review,
+              })
+            );
+  }
+  function stars_from_rating(rating){
+    //if (rating > 5) { rating = 5;}
+    var star_container = $("<span/>");
+    var counter = 0;
+    for (;counter < rating; counter++) {
+      star_container.append(colored_star());
+    }
+    for (;counter < 5; counter++) { 
+      star_container.append(grey_star());}
+    return star_container;
+  }
+  function colored_star(){
+    return $('<i/>',{class : "material-icons color-mat-green-800",text : "star"});}
+  function grey_star(){
+    return $('<i/>',{class : "material-icons color-grey",text : "star"});}
+
+  //submits review
+  function submitReview(){
+    var inputReview   = $("#etReview");
+    var stringReview  = inputReview.val();
+    if (product_id != "") {
+      var url         = "submit_review.php"
+                      + "?id="
+                      + product_id
+                      + "&review="
+                      + stringReview
+                      + "&rating="
+                      + rating;
+      $.get(url, function(data, success){
+        var response  = JSON.parse(data);
+        var success   = response.success;
+        var message   = response.message;
+        if (success) {
+          inputReview.val('');
+          //refresh review list
+          loadReviews();
+        }
+        alert(message);
+      });
+    }
+  }
+  //load product info from product id
+  function loadProductInfo(){
+    if (product_id != "") {
+      var url         = "product_info.php" 
+                      + "?id="
+                      + product_id;
+      $.get(url, function(data, success){
+        var response  = JSON.parse(data);
+        var success   = response.success;
+        var message   = response.message;
+        if (success) {  
+          $("#product_info_container").show();
+          $("#shop_item_card_title").html(response.name);
+          $("#shop_item_card_price").html(response.price);
+          $("#shop_item_card_image").attr("src", response.image_name);
+
+        }
+        else{
+          alert(message);
+        }
+      });
+    }
+  }
+  // check id from address bar
+  function check_id(){
+    // check if id key is present or not if not jump to main page
+    if (decodeAddressBar().id != null) {
+      // check if id key's value is nothing if not jump to main page
+      if (decodeAddressBar().id != "") {
+        // check if id key's value is a number or not if not jump to main page
+        if (!isNaN(decodeAddressBar().id )) {
+          product_id  = decodeAddressBar().id;
+        }else{
+          document.location.href = "../";
+        }
+      }else{
+        document.location.href = "../";
+      }
+    }else{
+      document.location.href = "../";
+    }
+  }
+  //decode address bar
+  function decodeAddressBar(){
+    var addressBarText  = document.location.href
+    var data            = {};
+    if (addressBarText.includes('?')) {
+      var params        = addressBarText.split('?')[1].split('&');
+      for(var i = 0; i < params.length; i++){
+        var temp        = params[i].split('=');
+        data[temp[0]]   = temp[1];
+      }
+    }
+    return data;
+  }
+  // check if user signed in
+  function checkSession(){  
+    var url = "../user_check_session/";
+    $.get(url,function(data, status){
+      var response  = JSON.parse(data);
+      var success   = response.success;
+      var message   = response.message;
+      if (success)  {  
+        console.log(response.user_mail);
+        $(".session_available").show();
+        $(".session_unavailable").hide();
+      }
+      else          {  
+        $(".session_available").hide();
+        $(".session_unavailable").show();
+      }
+    });
+  }
+  //logout
+  function logout(){
+    var url = "../logout/";
+    $.get(url,function(data, status){
+      var response  = JSON.parse(data);
+      var success   = response.success;
+      var message   = response.message;
+      if (success)  {  
+        $(".session_available").hide();
+        $(".session_unavailable").show();
+      }
+      else          {  
+        $(".session_available").show();
+        $(".session_unavailable").hide();
+      }
+    });
+  }
+
+  //rating bar
+  function ratingBar(rating){
+    //if (rating > 5) { rating = 5;}
+    var buttonBarWidget = $("<ul/>");
+    var counter = 0;
+    for (;counter < rating; counter++) {
+      buttonBarWidget.append(colored_star_icon_button(counter));
+    }
+    for (;counter < 5; counter++) { 
+      buttonBarWidget.append(uncolored_star_icon_button(counter));}
+    return buttonBarWidget;
+  }
+  function colored_star_icon_button(position){
+    return $('<button/>',{
+      class : "mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored",
+      click : (function(){new_rating(position);})
+    })
+    .append($('<i/>',{class : "material-icons",text : "star"}));
+  }
+  function uncolored_star_icon_button(position){
+    return $('<button/>',{
+      class : "mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect",
+      click : (function(){new_rating(position);})
+    })
+    .append($('<i/>',{class : "material-icons",text : "star"}));
+  }
+  function new_rating(position){
+    rating = position + 1;
+    $('#rating_bar_container').html(ratingBar(rating));
+  }
+
+</script>

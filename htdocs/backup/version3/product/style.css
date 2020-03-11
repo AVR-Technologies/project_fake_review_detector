@@ -1,0 +1,103 @@
+/* body */
+
+body 							{
+	background-color 			:		#eeeeee;
+}
+
+/*	image card	*/
+
+.shop_item_image_card			{
+    width						:		96%;
+    height						:		60%;
+    margin						:		2%;
+    display						:		inline-block;
+}
+.shop_item_card_image			{
+	max-width 					:		80%;
+	max-height 					:		80%;
+	display						:		block;
+	margin-right 				:		auto;/*to center image horizontaly*/
+	margin-left 				:		auto;/*to center image horizontaly*/
+	margin-top 					:		5%;
+	margin-bottom 				:		5%;
+}
+
+/*	name and price card	*/
+
+.shop_item_name_card			{
+	width						:		96%;
+    margin-left					:		2%; 
+    margin-right				:		2%;
+    margin-top					:		2%;
+    margin-bottom				:		1%;
+    display						:		inline-block;
+    background-color 			:		white;
+}
+.shop_item_name_card
+.mdl-card__title				{
+	height						:		50px;
+	color						:		#757575;
+	font-size					:		20px;
+	font-weight 				:		600;
+}
+.shop_item_name_card
+.shop_item_card_price_title		{
+	color						:		#f44336;
+	font-size					:		20px;
+	display						:		inline-block;
+	vertical-align				:		center;
+	margin-left					:		10px;
+}
+
+/*	Enter Review card	*/
+
+.enter_review_card				{
+	margin						:		2%; 
+	width						:		96%;
+    background-color 			:		white;
+}
+.enter_review_card
+.mdl-textfield					{
+	margin						:		1%; 
+	width						:		98%;
+}
+
+/*	Review card	*/
+
+.review_card					{
+	width						:		96%;
+	margin						:		2%;
+    background-color 			:		white;
+}
+.review_card
+.mdl-card__title-text			{
+	color						:		#424242;
+	font-size					:		20px;
+}
+.review_card
+.mdl-card__supporting-text				{
+	width 						: 		96%;
+}
+
+/* white header */
+
+.white-header 					{
+	background-color 			:		white;
+	overflow 					:		visible;
+} 
+.white-header 
+.mdl-navigation__link 			{
+	color 						:	#757575;
+	font-weight 				:	bold;
+    font-size 					:	16px;
+}
+.white-header 
+.mdl-navigation__link:hover  	{
+      border-bottom 			: 	4px solid #43a047;
+}
+.white-header 
+.mdl-layout-title 				{
+	color 						:	#43a047;
+	font-weight 				:	bold;
+	font-size 					:	26px;
+}

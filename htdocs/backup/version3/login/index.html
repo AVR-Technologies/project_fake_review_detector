@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>S Mart</title>
+    <!-- title of website tab-->
+    <link rel="stylesheet" 
+          href="../libs/mdl/material.min.css">
+    <!-- include mdl stylesheet -->
+    <script src="../libs/mdl/material.min.js"></script>
+    <!-- include mdl javascript -->
+    <link rel="stylesheet" 
+          href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- include mdl icons -->
+    <link rel="stylesheet" 
+          href="style.css">
+    <!-- include global_style from top directory -->
+    <link rel="stylesheet" 
+          href="../global_style.css">
+    <!-- include custom stylesheet -->
+    <script src="../libs/jquery/jquery.min.js"></script>
+    <!-- include jquery library -->
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="mdl-layout 
+                mdl-js-layout 
+                mdl-layout--fixed-header">
+
+      <!-- main layout -->
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <!-- your content goes here -->
+
+          <center>
+            <!-- login card -->
+          <div class="login_card 
+                      mdl-card 
+                      mdl-shadow--2dp
+                      border_radius_20">
+            <div class="mdl-card__title 
+                        bottom-border">
+              <h2 class=" mdl-card__title-text 
+                          color-grey 
+                          weight-700">Login page</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <!-- email input -->
+              <div class="full_width 
+                          mdl-textfield 
+                          mdl-js-textfield 
+                          mdl-textfield--floating-label">
+                <input  class="mdl-textfield__input" 
+                        type="text" 
+                        id="etEmail">
+                <label  class="mdl-textfield__label" 
+                        for="etEmail">Email</label>
+              </div>
+                
+              <!-- password input -->
+              <div class="full_width 
+                          mdl-textfield 
+                          mdl-js-textfield 
+                          mdl-textfield--floating-label">
+                <input  class="mdl-textfield__input" 
+                        type="password" 
+                        id="etPassword">
+                <label  class="mdl-textfield__label" 
+                        for="etPassword">Password</label>
+              </div>
+            </div>
+            <div class="mdl-card__actions 
+                        mdl-card--border 
+                        border_radius_20">
+              <!-- got to home page button -->
+              <a  class=" mdl-button 
+                          mdl-js-button 
+                          mdl-js-ripple-effect 
+                          border_radius_20 
+                          color-dark-grey 
+                          weight-700" 
+                  href="../">Home</a>
+              <!-- login button -->
+              <button class=" mdl-button 
+                              mdl-button--colored 
+                              mdl-button--raised 
+                              mdl-js-button 
+                              mdl-js-ripple-effect 
+                              align_right 
+                              border_radius_20 
+                              weight-700"
+                      onclick="login()">Login</button>
+              <!-- go to register page button -->
+              <a  class=" mdl-button 
+                          mdl-js-button
+                          mdl-button--accent 
+                          mdl-js-ripple-effect 
+                          align_right 
+                          border_radius_20  
+                          weight-700" 
+                  href="../register">Register instead</a>
+            </div>
+          </div>
+          
+          </center>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+
+
+<script type="text/javascript">
+  function login(){
+    var inputEmail      = $("#etEmail");
+    var inputPassword   = $("#etPassword");
+    var stringEmail     = inputEmail.val();
+    var stringPassword  = inputPassword.val();
+    //check if email is provided
+    if (stringEmail != "") {
+      //check if password is provided
+      if (stringPassword != "") {
+        var url         = "login.php" 
+                        + "?email=" 
+                        + stringEmail
+                        + "&password=" 
+                        + stringPassword;
+        $.get(url,function(data, status){
+          var response  = JSON.parse(data);
+          var success   = response.success;
+          var message   = response.message;
+          if (success)  { document.location.href = "../";}
+          else          {  alert(message);}
+        });
+        
+      }else{
+        alert("Password is not provided.");
+        inputPassword.focus();
+      }
+    }else{
+      alert("Email is not provided");
+      inputEmail.focus();
+    }
+  }
+</script>

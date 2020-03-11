@@ -1,0 +1,9 @@
+body					{
+	background			:	#212121;
+}
+
+/* register card */
+.register_card			{
+	width				:	400px;
+	margin				:	20px;
+}

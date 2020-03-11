@@ -1,0 +1,30 @@
+/* body */
+
+body 							{
+	background-color 			:		#212121;
+}
+
+
+/* white header */
+
+.white-header 					{
+	background-color 			: 		#263238;
+	overflow 					: 		visible;
+} 
+.white-header 
+.mdl-navigation__link 			{
+	color 						: 		white;
+	font-weight 				: 		bold;
+    font-size 					: 		16px;
+    cursor 						:		pointer;
+}
+.white-header 
+.mdl-navigation__link:hover  	{
+      border-bottom 			: 		4px solid white;
+}
+.white-header 
+.mdl-layout-title 				{
+	color 						: 		white;
+	font-weight 				: 		bold;
+	font-size 					:		26px;
+}
